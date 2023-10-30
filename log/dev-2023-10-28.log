@@ -1,0 +1,9 @@
+┌ Info: 2023-10-28 23:52:59 Watching ["C:\\Users\\lukka\\.julia\\geniebuilder\\apps\\app"]
+└ @ GenieAutoReload C:\Users\lukka\.julia\packages\GenieAutoReload\IuBCb\src\GenieAutoReload.jl:19
+┌ Info: 2023-10-28 23:53:11 Watching ["C:\\Users\\lukka\\.julia\\geniebuilder\\apps\\app"]
+└ @ GenieAutoReload C:\Users\lukka\.julia\packages\GenieAutoReload\IuBCb\src\GenieAutoReload.jl:19
+┌ Info: 2023-10-28 23:53:13 
+│ Web Server starting at http://0.0.0.0:9101 - press Ctrl/Cmd+C to stop the server. 
+└ @ Genie.Server C:\Users\lukka\.julia\packages\Genie\whc0S\src\Server.jl:161
+┌ Info: 2023-10-28 23:53:14 Listening on: 0.0.0.0:9101, thread id: 1
+└ @ HTTP.Servers C:\Users\lukka\.julia\packages\HTTP\SN7VW\src\Servers.jl:367
