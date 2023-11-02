@@ -1,11 +1,13 @@
 module mainController
 
-    #include("../public/templates/template.jl")
     include("../db/querys.jl")
+    #include("../public/templates/template.jl")
+    #include("../public/templates/base.jl")
 
     using HTTP,  Mustache, DataFrames
     using .queryBuilder
     #using template
+    #using .baseTemplate
 
     template = mt"""
     <html>
@@ -52,6 +54,10 @@ module mainController
     d = DataFrame(names=["matheus", "Medrado", "Paulo"], summs=[10,20,30])
     e = DataFrame(countrys=listOfValue)
     out = render(template, TITLE="O titulo usa template ", D=d,E=e)
+
+    # finalTemplate = baseTemplate.returnTemplateFill(out)
+    # println(finalTemplate)
+
 
     return HTTP.Response(200, out);
 

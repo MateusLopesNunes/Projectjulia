@@ -27,16 +27,4 @@ module queryBuilder
 
     end
 
-    # dataCountry = sqlGet("select * from countrylanguage;")
-    # dataCity = sqlGet("select * from city;")
-    # dataCountry = sqlGet("select * from country;")
-    # oneCountryData = sqlGetCountry("BRA")
-    # country = CountryModel.getCountryByCountry(oneCountryData)
-
-    # listOfCountry = createListOfcountrylanguage(dataCountry)
-    # listOfCity = createListOfCity(dataCity)
-    # listOfCountry = CountryModel.createListOfCountry(dataCountry)
-    # # print(listOfCountry[1])
-    # # print(listOfCity[1])
-    # print(listOfCountry)
 end
