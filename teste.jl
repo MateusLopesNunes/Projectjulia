@@ -51,10 +51,14 @@ baseTemplateData = mt"""
                 </div>
             </nav>
             <div> {{{:DATA}}} </div>
+            <script>
+            </script>
         </body>
     </html>
     """
 
+
+    
 function getTemplate()
         
     listOfCountry = queryBuilder.returnListOfCountry()
