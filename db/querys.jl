@@ -7,7 +7,6 @@ module queryBuilder
 
     using .CountryModel
 
-
     function sqlGet(sql_query)
         data = DBInterface.execute(conn::MySQL.Connection, sql_query) 
         return data
