@@ -40,42 +40,57 @@ module CountryModel
     end
 
     function convertRowIntoCountry(row)
+        
+            code = row[1] 
+            name = row[2] 
+            continent = row[3] 
+            region = row[4] 
+            surfaceArea = row[5] 
+            indepYear = row[6] 
+            population = row[7] 
+            lifeExpectancy = row[8] 
+            gnp = row[9] 
+            gnpOld = row[10] 
+            localName = row[11] 
+            governmentForm = row[12] 
+            headOfState = row[13] 
+            capital = row[14] 
+            code2 = row[15] 
 
-            if typeof(row[6]) == Missing
+            if typeof(indepYear) == Missing
                 indepYear = 0
             else 
-                indepYear = row[6]
+                indepYear = indepYear
             end
 
-            if typeof(row[8]) == Missing
+            if typeof(lifeExpectancy) == Missing
                 lifeExpectancy = 0
             else 
-                lifeExpectancy = row[8]
+                lifeExpectancy = lifeExpectancy
             end
 
-            if typeof(row[10]) == Missing
-                GNPOld = 0
+            if typeof(gnpOld) == Missing
+                gnpOld = 0
             else 
-                GNPOld = row[10]
+                gnpOld = gnpOld
             end
 
-            if typeof(row[13]) == Missing
+            if typeof(headOfState) == Missing
                 headOfState = "missing Head"
             else 
-                headOfState = row[13]
+                headOfState = headOfState
             end
 
-            if typeof(row[14]) == Missing
+            if typeof(capital) == Missing
                 capital = 0
             else 
-                capital = row[14]
+                capital = capital
             end
 
-            # print(typeof(row[1]))
             country = Country(
-                row[1], row[2], row[3], row[4], row[5],
-                indepYear, row[7], lifeExpectancy, row[9], GNPOld,
-                row[11], row[12], headOfState, capital, row[15]
+                code, name, continent, region, surfaceArea,
+                indepYear, population, lifeExpectancy, gnp, gnpOld,
+                localName, governmentForm, headOfState, capital, code2
             )
             return country
     end

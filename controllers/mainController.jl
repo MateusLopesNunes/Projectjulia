@@ -4,7 +4,7 @@ module mainController
     #include("../public/templates/template.jl")
     #include("../public/templates/base.jl")
 
-    using HTTP,  Mustache, DataFrames, NodeJS
+    using HTTP,  Mustache, DataFrames, NodeJS, JSON
     using .queryBuilder
     #using template
     #using .baseTemplate
@@ -127,5 +127,25 @@ module mainController
 
     return HTTP.Response(200, finalHTML);
 
+    end
+
+    function postPopulation(req::HTTP.Request)
+        content_type =  HTTP.header(req, "Content-Type")
+        if  content_type == "application/json"
+            try
+                json_data = JSON.parse(IOBuffer(req.body))
+                data = json_data["list"]
+                listOfCountry = queryBuilder.listOfPopulation(data)
+
+                println(listOfCountry[1])
+                
+                return HTTP.Response(200, "Sucesso $data");
+
+            catch e
+                return HTTP.Response(404, "Erro");
+
+                println("Erro ao analisar os dados JSON da requisição: $e")
+            end
+        end
     end
 end
