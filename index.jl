@@ -8,6 +8,7 @@ const ROUTER = HTTP.Router()
 HTTP.register!(ROUTER, "GET", "/", mainController.getHome)
 HTTP.register!(ROUTER, "GET", "/dashboard", mainController.getDashboard)
 HTTP.register!(ROUTER, "GET", "/template", mainController.getTemplate)
+HTTP.register!(ROUTER, "POST", "/population", mainController.postPopulation)
 
 
 server = HTTP.serve(ROUTER, Sockets.localhost, 8080)
