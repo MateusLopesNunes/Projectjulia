@@ -41,28 +41,29 @@ module queryBuilder
 
     function listOfPopulation(listOfCountry::Vector{Any})
 
-        # inParameter = ""
-        # for country in listOfCountry
-        #     inParameter = inParameter * "'$country', "
-        # end
-
-        # inParameter = inParameter[1:(length(inParameter) - 2)]
-        # sqlQuery = "SELECT * FROM Country WHERE Name IN ($inParameter);"
-        # println(sqlQuery)
-        # data = sqlGet(sqlQuery)
-        # listOfCountry = CountryModel.createListOfCountry(data)
-        x = 1
         inParameter = ""
         for country in listOfCountry
-            inParameter = inParameter * "'\$$x', "
-            x = x +1
+            inParameter = inParameter * "'$country', "
         end
-        
+
         inParameter = inParameter[1:(length(inParameter) - 2)]
         sqlQuery = "SELECT * FROM Country WHERE Name IN ($inParameter);"
-        print(sqlQuery)
-        data = sqlGetPrepare(sqlQuery, listOfCountry)
+        println(sqlQuery)
+        data = sqlGet(sqlQuery)
         listOfCountry = CountryModel.createListOfCountry(data)
+        
+        # x = 1
+        # inParameter = ""
+        # for country in listOfCountry
+        #     inParameter = inParameter * "'\$$x', "
+        #     x = x +1
+        # end
+        
+        # inParameter = inParameter[1:(length(inParameter) - 2)]
+        # sqlQuery = "SELECT * FROM Country WHERE Name IN ($inParameter);"
+        # print(sqlQuery)
+        # data = sqlGetPrepare(sqlQuery, listOfCountry)
+        # listOfCountry = CountryModel.createListOfCountry(data)
 
         return listOfCountry
     end

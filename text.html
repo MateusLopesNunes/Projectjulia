@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <title>Gráfico</title>
+        <style>
+            #container {
+                position: relative;
+            }
+            #grafico {
+                position: absolute;
+                left: 50px;
+                top: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="container">
+            <canvas id="grafico" width="400" height="300"></canvas>
+            <svg width="100%" height="100%">
+                <line x1="50" y1="50" x2="50" y2="350" stroke="black" stroke-width="2" />
+                <line x1="50" y1="350" x2="450" y2="350" stroke="black" stroke-width="2" />
+            </svg>
+        </div>
+    </body>
+    <script>
+            var canvas = document.getElementById("grafico");
+    var ctx = canvas.getContext("2d");
+    
+    // Dados do gráfico
+    var dados = [3401200, 7734000, 6695000, 10239000, 170115000]; // Substitua com seus próprios dados
+    var labels = ["Albania", "Azerbaijan", "Burundi", "Belgium", "Brazil"]; // Rótulos correspondentes aos dados
+    var cores = ["red", "green", "blue", "orange", "purple"];
+    var larguraBarra = 50;
+    var espacoEntreBarras = 20;
+    var alturaMaxima = canvas.height;
+    
+    var x = 50;
+    for (var i = 0; i < dados.length; i++) {
+        var altura = (dados[i] / 60) * alturaMaxima;
+        
+        // Desenhe a barra
+        ctx.fillStyle = cores[i];
+        ctx.fillRect(x, canvas.height - altura, larguraBarra, altura);
+        
+        // Adicione um rótulo acima da barra
+        ctx.fillStyle = "black"; // Cor do texto
+        ctx.font = "14px Arial"; // Estilo de fonte
+        ctx.textAlign = "center"; // Alinhamento do texto
+        ctx.fillText(labels[i], x + larguraBarra / 2, canvas.height - altura - 10); // Posição do rótulo
+        
+        x += larguraBarra + espacoEntreBarras;
+    }
+
+    </script>
+</html>
