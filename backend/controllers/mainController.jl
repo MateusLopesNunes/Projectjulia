@@ -61,29 +61,17 @@ module mainController
     graphData = mt"""
         var canvas = document.getElementById("grafico");
         var ctx = canvas.getContext("2d");
-        
         // Dados do gráfico
-        var dados = {{:values}}; // Substitua com seus próprios dados
-        var labels = ['label 1', 'label2', 'label3', 'label4', 'label5' ]
+        var dados = [{{{:values}}}];
         var cores = ["red", "green", "blue", "orange", "purple"];
         var larguraBarra = 50;
         var espacoEntreBarras = 20;
         var alturaMaxima = canvas.height;
-        
         var x = 50;
         for (var i = 0; i < dados.length; i++) {
             var altura = (dados[i] / 60) * alturaMaxima;
-            
-            // Desenhe a barra
             ctx.fillStyle = cores[i];
             ctx.fillRect(x, canvas.height - altura, larguraBarra, altura);
-            
-            // Adicione um rótulo acima da barra
-            ctx.fillStyle = "black"; // Cor do texto
-            ctx.font = "14px Arial"; // Estilo de fonte
-            ctx.textAlign = "center"; // Alinhamento do texto
-            ctx.fillText(labels[i], x + larguraBarra / 2, canvas.height - altura - 10); // Posição do rótulo
-            
             x += larguraBarra + espacoEntreBarras;
         }
     """
@@ -273,12 +261,13 @@ module mainController
             push!(listOfOption, country)
         end
         
-        f = DataFrame(options=listOfOption)
+        data = Dict(
+            "country" => listOfOption
+        )
 
-        dashboardHTML
-        finalHtml = render(dashboardHTML, F=f)
+        json = JSON.json(data)
 
-        return HTTP.Response(200, finalHtml);
+        return HTTP.Response(200, json );
     end
 
     function getTemplate(req::HTTP.Request)
@@ -332,19 +321,20 @@ module mainController
                     #keysValue = keysValue * "\'$(country.Name)\', "
                 end
 
-                println("aqui")
-                println(valuesValue)
-                println(keysValue)
-
                 out = render(graphData,  
-                    values="[$(valuesValue[1:(length(valuesValue) - 2)])]", 
+                    values="$(valuesValue[1:(length(valuesValue) - 2)])", 
                     #keys="[$(keysValue[1:(length(keysValue) - 2)])]"
                     #keys="['label 1', 'label2', 'label3', 'label4', 'label5' ]"
                 )
                 finalHTML = render(graphHtml, TITLE="Gráfico", GRAPH=out )
-                getGraph(req::HTTP.Request, finalHTML)
 
-                #return HTTP.Response(200, finalHTML);
+                headers = [
+                    "Content-Type" => "text/html"
+                ]
+                
+                #getGraph(req::HTTP.Request, headers, finalHTML)
+
+                return HTTP.Response(302, headers, finalHTML );
 
             catch e
                 return HTTP.Response(404, "Erro");
@@ -354,7 +344,9 @@ module mainController
         end
     end
 
-    function getGraph(req::HTTP.Request, html)
-        return HTTP.Response(302, Dict("Location" => "/population"));
+    function getGraph(req::HTTP.Request, html, headers)
+        println(req)
+
+        return HTTP.Response(200, headers, html);
     end
 end

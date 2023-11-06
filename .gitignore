@@ -1,0 +1,33 @@
+# Ignore node_modules, onde as dependências do Node.js são instaladas
+node_modules/
+
+# Ignore arquivos e diretórios gerados durante o desenvolvimento
+npm-debug.log
+yarn-error.log
+logs/
+*.log
+
+# Ignore arquivos de configuração
+*.env
+*.env.local
+
+# Ignore arquivos de dependências do package manager
+package-lock.json
+yarn.lock
+
+# Ignore arquivos de build e saída de compilação
+/build/
+/dist/
+
+# Ignore arquivos de editor
+.vscode/
+.idea/
+
+# Ignore arquivos de cache
+.npm/
+.cache/
+
+# Ignore arquivos de configuração de editor
+*.swp
+*.swo
+*.swn
