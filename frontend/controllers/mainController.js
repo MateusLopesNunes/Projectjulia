@@ -1,4 +1,7 @@
 const axios = require('axios'); 
+
+import Country from '../model/country';
+
 module.exports = class MainController {
    
     static async showHome (req, res) {
@@ -24,7 +27,7 @@ module.exports = class MainController {
             country["name"] = element;
             countrys.push(country);
         })
-
+        
         console.log(countrys)
         res.render("main/dashboard", {countrys});
     }

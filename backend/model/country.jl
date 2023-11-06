@@ -1,6 +1,7 @@
 module CountryModel
 
-    export Country
+    using JSON, JSON3
+    export Country, country_to_json
 
     struct Country
         Code::String
@@ -18,6 +19,32 @@ module CountryModel
         HeadOfState::String
         Capital::Int32
         Code2::String
+    end
+
+    function country_to_json(country::Country)
+        country_dict = Dict(
+            "Code" => country.Code,
+            "Name" => country.Name,
+            "Continent" => country.Continent,
+            "Region" => country.Region,
+            "SurfaceArea" => country.SurfaceArea,
+            "IndepYear" => country.IndepYear,
+            "Population" => country.Population,
+            "LifeExpectancy" => country.LifeExpectancy,
+            "GNP" => country.GNP,
+            "GNPOld" => country.GNPOld,
+            "LocalName" => country.LocalName,
+            "GovernmentForm" => country.GovernmentForm,
+            "HeadOfState" => country.HeadOfState,
+            "Capital" => country.Capital,
+            "Code2" => country.Code2
+        )
+
+
+        #println(country_dict)
+        #println(JSON.json(country_dict))
+    
+        return country_dict
     end
 
     function getCountryByCountry(data)

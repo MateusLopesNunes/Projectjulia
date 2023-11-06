@@ -67,4 +67,8 @@ module queryBuilder
 
         return listOfCountry
     end
+
+    function countryToJson(country::Country)
+        return CountryModel.country_to_json(country)
+    end
 end
