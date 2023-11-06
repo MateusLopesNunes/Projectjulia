@@ -355,6 +355,6 @@ module mainController
     end
 
     function getGraph(req::HTTP.Request, html)
-        return HTTP.Response(200, html);
+        return HTTP.Response(302, Dict("Location" => "/population"));
     end
 end

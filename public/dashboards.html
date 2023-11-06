@@ -78,29 +78,28 @@
             function updateList() {
                 listSelect.innerHTML = '';
 
-            // Iterando sobre a lista de países e adicionando à lista
-            listPais.forEach(function(pais, index) {
-                const listItem = document.createElement('div');
-                listItem.classList.add('d-flex', 'flex-row', 'align-items-center');
+                listPais.forEach(function(pais, index) {
+                    const listItem = document.createElement('div');
+                    listItem.classList.add('d-flex', 'flex-row', 'align-items-center');
 
-                // Cria um elemento de parágrafo para o nome do país
-                const paragraph = document.createElement('p');
-                paragraph.classList.add('p-2', 'm-0');
-                paragraph.textContent = pais;
+                    // Cria um elemento de parágrafo para o nome do país
+                    const paragraph = document.createElement('p');
+                    paragraph.classList.add('p-2', 'm-0');
+                    paragraph.textContent = pais;
 
-                // Cria um botão de lixeira para excluir o país
-                const deleteButton = document.createElement('button');
-                deleteButton.classList.add('btn');
-                deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
-                deleteButton.addEventListener('click', function() {
-                    listPais.splice(index, 1);
-                    updateList();
-                });
+                    // Cria um botão de lixeira para excluir o país
+                    const deleteButton = document.createElement('button');
+                    deleteButton.classList.add('btn');
+                    deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+                    deleteButton.addEventListener('click', function() {
+                        listPais.splice(index, 1);
+                        updateList();
+                    });
 
-                listItem.appendChild(paragraph);
-                listItem.appendChild(deleteButton);
+                    listItem.appendChild(paragraph);
+                    listItem.appendChild(deleteButton);
 
-                listSelect.appendChild(listItem);
+                    listSelect.appendChild(listItem);
             });
         }
 
@@ -119,12 +118,12 @@
                         body: JSON.stringify(body)
                     }
                 )
-            }else{
+            } else {
                 alert("Você precisa selecionar 5 paises")
             }
         });
             
-            getValueSelect()
+        getValueSelect()
 
         </script>
     </body>
