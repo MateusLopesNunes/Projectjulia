@@ -88,9 +88,9 @@
 
         listSelect.appendChild(listItem);
     });
-}
+    }
 
-saveButton.addEventListener('click', () => {
+    saveButton.addEventListener('click', function() {
     if (listPais.length == 5){
         const body = {
             list : listPais
@@ -108,8 +108,7 @@ saveButton.addEventListener('click', () => {
     }else{
         alert("Você precisa selecionar 5 paises")
     }
-});
-    
-    getValueSelect()
+    });
 
+    getValueSelect()
 </script>
