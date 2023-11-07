@@ -6,6 +6,7 @@ module mainController
 
     using HTTP,  Mustache, DataFrames, NodeJS, JSON
     using .queryBuilder
+
     #using template
     #using .baseTemplate
 
@@ -260,9 +261,14 @@ module mainController
         for country in listOfValue 
             push!(listOfOption, country)
         end
-        
+
+        listOfCountryJson = []
+        for  country in listOfCountry
+            push!(listOfCountryJson, queryBuilder.countryToJson(country))
+        end
+
         data = Dict(
-            "country" => listOfOption
+            "countrys" => listOfCountryJson
         )
 
         json = JSON.json(data)
