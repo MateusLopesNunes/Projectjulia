@@ -319,29 +319,19 @@ module mainController
                 data = json_data["list"]
                 listOfCountry = queryBuilder.listOfPopulation(data)
                 
-                valuesValue = ""
-                keysValue = ""
-
-                for country in listOfCountry
-                    valuesValue = valuesValue * "$(country.Population), "
-                    #keysValue = keysValue * "\'$(country.Name)\', "
+                listOfCountryJson = []
+                for  country in listOfCountry
+                    push!(listOfCountryJson, queryBuilder.countryToJson(country))
                 end
-
-                out = render(graphData,  
-                    values="$(valuesValue[1:(length(valuesValue) - 2)])", 
-                    #keys="[$(keysValue[1:(length(keysValue) - 2)])]"
-                    #keys="['label 1', 'label2', 'label3', 'label4', 'label5' ]"
+        
+                data = Dict(
+                    "countrys" => listOfCountryJson
                 )
-                finalHTML = render(graphHtml, TITLE="Gráfico", GRAPH=out )
-
-                headers = [
-                    "Content-Type" => "text/html"
-                ]
-                
-                #getGraph(req::HTTP.Request, headers, finalHTML)
-
-                return HTTP.Response(302, headers, finalHTML );
-
+        
+                json = JSON.json(data)
+        
+                return HTTP.Response(200, json );
+            
             catch e
                 return HTTP.Response(404, "Erro");
 
