@@ -1,6 +1,6 @@
 const axios = require('axios'); 
 
-import Country from '../model/country';
+const Country = require('../model/country.js');
 
 module.exports = class MainController {
    
@@ -21,10 +21,9 @@ module.exports = class MainController {
         });
 
         let countrys = []
-        countryData["country"].forEach(element => {
-            let country = {};
-            console.log(element);
-            country["name"] = element;
+        countryData["countrys"].forEach(element => {
+            let country = Country.createCountryFromJSON(element);
+            console.log(country)
             countrys.push(country);
         })
         
