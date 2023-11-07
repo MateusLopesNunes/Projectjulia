@@ -29,4 +29,8 @@ module.exports = class MainController {
         res.render("main/dashboard", {countrys});
     }
 
+    static async showChartPopulation (req, res) {
+        res.render("main/chartPopulationCountry")
+    }
+
 }
