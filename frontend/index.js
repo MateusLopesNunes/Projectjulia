@@ -2,6 +2,7 @@ const express = require("express");
 const exphbs = require("express-handlebars");
 const port = 3000;
 const app = express();
+const cors = require('cors');
 
 
 const mainRoutes = require("./routes/mainRoutes");
@@ -15,6 +16,10 @@ app.use(
     })
 );
 
+app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:3000',
+}));
 app.use(express.json());
 
 app.use(express.static('public'));
