@@ -1,6 +1,6 @@
 module CountryModel
 
-    using JSON, JSON3
+    using JSON
     export Country, country_to_json
 
     struct Country
