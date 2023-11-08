@@ -23,7 +23,6 @@ module.exports = class MainController {
         let countrys = []
         countryData["countrys"].forEach(element => {
             let country = Country.createCountryFromJSON(element);
-            console.log(country)
             countrys.push(country);
         })
         
@@ -47,12 +46,39 @@ module.exports = class MainController {
             console.error(error);
         });
 
-        console.log(listOfCountryJson)
+        let listOfLabel = [];
+        let listOfData = [];
 
+        listOfCountryJson["countrys"].forEach((element) => {
+            listOfLabel.push(element.Name)
+            listOfData.push(element.Population)
+        });
+
+        console.log(`/chart/Population?label="${listOfLabel}"&data="${listOfData}"`)
+
+        res.redirect(`/chart/Population?label=${listOfLabel}&data=${listOfData}`)
     }
 
     static async showChartPopulation (req, res) {
-        res.render("main/chartPopulationCountry")
+        let listOfLabel = req.query.label;
+        let listOfData = req.query.data;
+
+        console.log(listOfLabel);
+        console.log(listOfData);
+
+        let chartData = {
+            "label" : `[${listOfLabel}]`,
+            "data" :`[${listOfData}]`
+        };
+
+        let jsonDta = {
+            "chartData" : chartData
+        }
+
+        console.log(jsonDta)
+
+
+        res.render("main/chart", {jsonDta});
     }
 
 }

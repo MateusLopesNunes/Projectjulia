@@ -47,7 +47,7 @@ module queryBuilder
         end
 
         inParameter = inParameter[1:(length(inParameter) - 2)]
-        sqlQuery = "SELECT * FROM Country WHERE Name IN ($inParameter);"
+        sqlQuery = "SELECT * FROM Country WHERE Code IN ($inParameter);"
         println(sqlQuery)
         data = sqlGet(sqlQuery)
         listOfCountry = CountryModel.createListOfCountry(data)
