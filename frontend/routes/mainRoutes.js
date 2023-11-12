@@ -6,6 +6,6 @@ const MainController = require("../controllers/mainController");
 router.get("/", MainController.showHome);
 router.get("/dashboard", MainController.showDashboard);
 router.get("/chart", MainController.showChartPopulation);
-router.post("/postGraph", MainController.postGraphList);
+router.post("/grafico", MainController.postGraphList);
 
 module.exports = router;
