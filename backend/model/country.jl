@@ -61,7 +61,7 @@ module CountryModel
         for row in data
             country = convertRowIntoCountry(row)
             push!(listOfCountry, country)
-        end
+        end 
 
         return listOfCountry
     end

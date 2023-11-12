@@ -31,84 +31,91 @@
                     </div>
                     
                 </div>
+                    <form id="countryForm" action="http://127.0.0.1:3000/postGraph" method="POST">
+                        <!-- Adicione um campo hidden para armazenar os países -->
+                        <input type="hidden" id="selectedCountries" name="selectedCountries" value="">
+                    </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" id="saveButton">Save changes</button>
+                <button type="submit" class="btn btn-primary" id="saveButton">Save changes</button>
             </div>
         </div>
     </div>
 </div>
+    <script>
+        const selectPais = document.querySelector('#selectPais');
+        let listSelect = document.querySelector('#listSelect');
+        let saveButton = document.getElementById('saveButton');
+        let selectedCountriesInput = document.getElementById('selectedCountries');
 
-<script>
-    const selectPais = document.querySelector('#selectPais');
-    let listSelect = document.querySelector('#listSelect');
-    let saveButton = document.getElementById('saveButton');
+        let listPais = [];
 
-    let listPais = []
-    function getValueSelect() {
-        
-        selectPais.addEventListener('change', function(){
-            if (listPais.length < 5 && !listPais.includes(selectPais.value)) {
-                listPais.push(selectPais.value)
-                listPais = Array.from(new Set(listPais));
-                console.log(listPais)
-                updateList()
+        function getValueSelect() {
+            selectPais.addEventListener('change', function () {
+                if (listPais.length < 5 && !listPais.includes(selectPais.value)) {
+                    listPais.push(selectPais.value);
+                    listPais = Array.from(new Set(listPais));
+                    console.log(listPais);
+                    updateList();
+                } else {
+                    alert('Você pode selecionar no máximo 5 países.');
+                }
+            });
+        }
+
+        function updateList() {
+            listSelect.innerHTML = '';
+
+            listPais.forEach(function (pais, index) {
+                const listItem = document.createElement('div');
+                listItem.classList.add('d-flex', 'flex-row', 'align-items-center');
+
+                const paragraph = document.createElement('p');
+                paragraph.classList.add('p-2', 'm-0');
+                paragraph.textContent = pais;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.classList.add('btn');
+                deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+                deleteButton.addEventListener('click', function () {
+                    listPais.splice(index, 1);
+                    updateList();
+                });
+
+                listItem.appendChild(paragraph);
+                listItem.appendChild(deleteButton);
+
+                listSelect.appendChild(listItem);
+            });
+
+            // Atualiza o valor do campo hidden com os países selecionados
+            selectedCountriesInput.value = listPais.join(',');
+        }
+
+        saveButton.addEventListener('click', function () {
+            if (listPais.length === 5) {
+                // Submete o formulário
+                document.getElementById('countryForm').submit();
             } else {
-                alert('Você pode selecionar no máximo 5 países.');
+                alert("Você precisa selecionar 5 países");
             }
-        })
-    }
-
-    // <i class="bi bi-trash"></i>
-    function updateList() {
-        listSelect.innerHTML = '';
-
-    // Iterando sobre a lista de países e adicionando à lista
-    listPais.forEach(function(pais, index) {
-        const listItem = document.createElement('div');
-        listItem.classList.add('d-flex', 'flex-row', 'align-items-center');
-
-        // Cria um elemento de parágrafo para o nome do país
-        const paragraph = document.createElement('p');
-        paragraph.classList.add('p-2', 'm-0');
-        paragraph.textContent = pais;
-
-        // Cria um botão de lixeira para excluir o país
-        const deleteButton = document.createElement('button');
-        deleteButton.classList.add('btn');
-        deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
-        deleteButton.addEventListener('click', function() {
-            listPais.splice(index, 1);
-            updateList();
         });
 
-        listItem.appendChild(paragraph);
-        listItem.appendChild(deleteButton);
-
-        listSelect.appendChild(listItem);
-    });
-    }
-
-    saveButton.addEventListener('click', function() {
-    if (listPais.length == 5){
-        const body = {
-            list : listPais
-        }
-        fetch(
-            `http://127.0.0.1:3000/postGraph`,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(body)
+        // Certifique-se de que o campo hidden seja removido do formulário antes de adicionar um novo
+        document.getElementById('countryForm').addEventListener('submit', function (event) {
+            const existingHiddenInput = document.getElementById('selectedCountries');
+            if (existingHiddenInput) {
+                existingHiddenInput.remove();
             }
-        )
-    }else{
-        alert("Você precisa selecionar 5 paises")
-    }
-    });
 
-    getValueSelect()
-</script>
+            const newHiddenInput = document.createElement('input');
+            newHiddenInput.type = 'hidden';
+            newHiddenInput.id = 'selectedCountries';
+            newHiddenInput.name = 'selectedCountries';
+            newHiddenInput.value = listPais.join(',');
+
+            document.getElementById('countryForm').appendChild(newHiddenInput);
+        });
+        getValueSelect();
+    </script>

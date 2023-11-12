@@ -1,0 +1,78 @@
+<h1 class="text-center mt-3 fs-2 text">Gráfico de população dos países selecionados</h1>
+<div class="row mt-5">
+    <div class="col-3">
+    </div>
+    <div class="col-6">
+        <canvas id="myChart"></canvas>
+    </div>
+    <div class="col-3">
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-3"></div>
+    {{#each chartData.country}}
+        <div class="col-1">
+            <button type="button" class="btn btn-primary" id="btn{{this.name}}">
+                    {{this.name}}
+            </button>
+        </div>
+        <div class="modal fade" id="modal{{this.name}}" tabindex="-1" aria-labelledby="meuModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="meuModalLabel">Meu Modal</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h1> Dados do Pais {{this.name}} </h1>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                        <button type="button" class="btn btn-primary">Salvar mudanças</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            let btnCountry{{this.name}} = document.getElementById("btn{{this.name}}");
+            
+            btnCountry{{this.name}}.addEventListener('click', function (){
+                showModal()
+            })
+
+            function showModal() {
+                var meuModal = new bootstrap.Modal(document.getElementById('modal{{this.name}}'));
+                meuModal.show();
+            }
+        </script>
+    {{/each}}
+    <div class="col-3"></div>
+</div>
+
+<script>
+    function chart() {
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+            labels: {{{chartData.label}}},
+            datasets: [{
+                label: '# of Votes',
+                data: {{chartData.data}},
+                borderWidth: 1
+            }]
+            },
+            options: {
+            scales: {
+                y: {
+                beginAtZero: true
+                }
+            }
+            }
+        });
+    }
+
+    chart()
+</script>
