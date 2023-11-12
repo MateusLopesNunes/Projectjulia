@@ -25,9 +25,17 @@ module queryBuilder
         return data
     end
 
+    function sqlGetPrepare(sql_query, params)
+        stmt = DBInterface.prepare(conn::MySQL.Connection, sql_query)
+        data = DBInterface.execute(stmt, params...)
+        return data
+    end
+
     function sqlGetCountry(parameter)
-        sql_query  = "select * from country where Code='$parameter';"
-        data = DBInterface.execute(conn::MySQL.Connection, sql_query) 
+        sql_query  = "select * from country where Code='?';"
+        # $parameter
+        params = (parameter,)  # Tupla com os valores dos parâmetros
+        data = sqlGetPrepare(sql_query, params)
         return data
     end
 
