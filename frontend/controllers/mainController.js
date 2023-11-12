@@ -51,13 +51,14 @@ module.exports = class MainController {
 
         let listOfLabel = [];
         let listOfData = [];
-        let listOfName = []
+        let listOfCountrys = []
 
         listOfCountryJson["countrys"].forEach((element) => {
             listOfLabel.push(`${element.Name}`)
             listOfData.push(element.Population)
-            listOfName.push({
-                "name" : element.Name
+            let countryObj = Country.createCountryFromJSON(element)
+            listOfCountrys.push({
+                "Country" : countryObj
             })
         });
 
@@ -70,7 +71,7 @@ module.exports = class MainController {
         let chartData = {
             "label" : `[${listOflabelWithQuotes}]`,
             "data" :`[${listOfData}]`,
-            "country" : listOfName
+            "country" : listOfCountrys
         };
 
         res.render("main/chart", {chartData});

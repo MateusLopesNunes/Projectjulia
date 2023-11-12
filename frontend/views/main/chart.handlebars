@@ -10,44 +10,62 @@
 </div>
 
 <div class="row mt-5">
-    <div class="col-3"></div>
-    {{#each chartData.country}}
-        <div class="col-1">
-            <button type="button" class="btn btn-primary" id="btn{{this.name}}">
-                    {{this.name}}
-            </button>
-        </div>
-        <div class="modal fade" id="modal{{this.name}}" tabindex="-1" aria-labelledby="meuModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="meuModalLabel">Meu Modal</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h1> Dados do Pais {{this.name}} </h1>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
-                        <button type="button" class="btn btn-primary">Salvar mudanças</button>
-                    </div>
-                </div>
+    <div class="col-3">
+    </div>
+    <div class="col-6">
+        <button type="button" class="btn btn-primary" id="showModalButton"> Mostrar Informações </button>
+    </div>
+    <div class="col-3">
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Ver Gráfico</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h1 class="fs-3">Informações dos Paises</h1>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome </th>
+                            <th scope="col">Continente</th>
+                            <th scope="col">Forma de Governo</th>
+                            <th scope="col">população </th>
+                            <th scope="col"> Ano de independencia </th>
+                            <th scope="col"> Presidente </th>
+                            <th scope="col"> Espectativa de vida </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each chartData.country}}
+                            <tr>
+                                <td>{{this.Country.Name}} </td>
+                                <td>{{this.Country.Continent}} </td>
+                                <td>{{this.Country.GovernmentForm}} </td>
+                                <td>{{this.Country.Population}} </td>
+                                <td>{{this.Country.IndepYear}} </td>
+                                <td>{{this.Country.HeadOfState}} </td>
+                                <td>{{this.Country.LifeExpectancy}} </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <script>
+                let showModalButton = document.getElementById('showModalButton');
+                    showModalButton.addEventListener('click', function() {
+                        let myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+                        myModal.show();
+                    });
+            </script>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
             </div>
         </div>
-        <script>
-            let btnCountry{{this.name}} = document.getElementById("btn{{this.name}}");
-            
-            btnCountry{{this.name}}.addEventListener('click', function (){
-                showModal()
-            })
-
-            function showModal() {
-                var meuModal = new bootstrap.Modal(document.getElementById('modal{{this.name}}'));
-                meuModal.show();
-            }
-        </script>
-    {{/each}}
-    <div class="col-3"></div>
+    </div>
 </div>
 
 <script>
@@ -59,7 +77,7 @@
             data: {
             labels: {{{chartData.label}}},
             datasets: [{
-                label: '# of Votes',
+                label: 'População dos paises selecionados',
                 data: {{chartData.data}},
                 borderWidth: 1
             }]
