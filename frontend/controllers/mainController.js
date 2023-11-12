@@ -31,9 +31,12 @@ module.exports = class MainController {
     }
 
     static async postGraphList(req, res){
-        let listOfCountry = req.body["list"]
-        listOfCountry = {
-            "list" : listOfCountry
+        console.log(req.body)
+        let listOfCountryRaw = req.body["selectedCountries"]
+        let listaPaises = listOfCountryRaw.split(',');
+
+        let listOfCountry = {
+            "list" : listaPaises
         };
 
         let listOfCountryJson = {};
@@ -48,37 +51,47 @@ module.exports = class MainController {
 
         let listOfLabel = [];
         let listOfData = [];
+        let listOfName = []
 
         listOfCountryJson["countrys"].forEach((element) => {
-            listOfLabel.push(element.Name)
+            listOfLabel.push(`${element.Name}`)
             listOfData.push(element.Population)
+            listOfName.push({
+                "name" : element.Name
+            })
         });
 
-        console.log(`/chart/Population?label="${listOfLabel}"&data="${listOfData}"`)
+        let listOflabelWithQuotes = [];
+        listOfLabel.forEach((element) => {
+            let label = `"${element}"`;
+            listOflabelWithQuotes.push(label)
+        });
 
-        res.redirect(`/chart/Population?label=${listOfLabel}&data=${listOfData}`)
+        let chartData = {
+            "label" : `[${listOflabelWithQuotes}]`,
+            "data" :`[${listOfData}]`,
+            "country" : listOfName
+        };
+
+        res.render("main/chart", {chartData});
+
     }
 
     static async showChartPopulation (req, res) {
-        let listOfLabel = req.query.label;
-        let listOfData = req.query.data;
+    //     let listOfLabel = req.query.label;
+    //     let listOfData = req.query.data;
 
-        console.log(listOfLabel);
-        console.log(listOfData);
+    //     console.log(listOfLabel);
+    //     console.log(listOfData);
 
-        let chartData = {
-            "label" : `[${listOfLabel}]`,
-            "data" :`[${listOfData}]`
-        };
-
-        let jsonDta = {
-            "chartData" : chartData
-        }
-
-        console.log(jsonDta)
+    //     let chartData = {
+    //         "label" : `[${listOfLabel}]`,
+    //         "data" :`[${listOfData}]`,
+    //         "country" : listOfLabel
+    //     };
 
 
-        res.render("main/chart", {jsonDta});
-    }
+    //     res.render("main/chart", {chartData});
+     }
 
 }
