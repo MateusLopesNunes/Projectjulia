@@ -14,17 +14,6 @@ module queryBuilder
         return data
     end
 
-    # function sqlGetPrepare(sql_query, params)
-    #     stmt = DBInterface.prepare(conn::MySQL.Connection, sql_query)
-    #     println(stmt)
-    #     println(" ")
-    #     data = DBInterface.execute(conn::MySQL.Connection, [params[1], params[2], params[3], params[4]]) 
-    #     #println(data)
-    #     println(" ")
-
-    #     return data
-    # end
-
     function sqlGetPrepare(sql_query, params)
         stmt = DBInterface.prepare(conn::MySQL.Connection, sql_query)
         data = DBInterface.execute(stmt, params...)
@@ -39,13 +28,12 @@ module queryBuilder
 
     end
 
-    function sqlGetCountry(parameter)
-        sql_query  = "select * from country where Code='?';"
-        # $parameter
-        params = (parameter,)  # Tupla com os valores dos parâmetros
-        data = sqlGetPrepare(sql_query, params)
-        return data
-    end
+    # function sqlGetCountry(parameter)
+    #     sql_query  = "select * from country where Code='?';"
+    #     params = (parameter,)  # Tupla com os valores dos parâmetros
+    #     data = sqlGetPrepare(sql_query, params)
+    #     return data
+    # end
 
     function listOfPopulation(listOfCountry::Vector{Any})
 
@@ -55,24 +43,13 @@ module queryBuilder
         end
 
         inParameter = inParameter[1:(length(inParameter) - 2)]
-        sqlQuery = "SELECT * FROM Country WHERE Code IN (?);"
-        # println(sqlQuery)
-        data = sqlGetPrepare(sqlQuery, listOfCountry)
+        #sqlQuery = "SELECT * FROM Country WHERE Code IN (?);"
+        # data = sqlGetPrepare(sqlQuery, listOfCountry)
+        sqlQuery = "SELECT * FROM Country WHERE Code IN ($inParameter);"
+        data = sqlGet(sqlQuery)
+
         listOfCountry = CountryModel.createListOfCountry(data)
         
-        # x = 1
-        # inParameter = ""
-        # for country in listOfCountry
-        #     inParameter = inParameter * "'\$$x', "
-        #     x = x +1
-        # end
-        
-        # inParameter = inParameter[1:(length(inParameter) - 2)]
-        # sqlQuery = "SELECT * FROM Country WHERE Name IN ($inParameter);"
-        # print(sqlQuery)
-        # data = sqlGetPrepare(sqlQuery, listOfCountry)
-        # listOfCountry = CountryModel.createListOfCountry(data)
-
         return listOfCountry
     end
 
