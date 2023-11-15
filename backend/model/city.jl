@@ -1,11 +1,26 @@
 module CityModel
 
+    using JSON
+    export City, city_to_json
+
     struct City
         Id::Int32
         Name::String
         CountryCode::String
         District::String
         Population::Int32
+    end
+
+    function city_to_json(city::City)
+        city_dict = Dict(
+            "Id" => city.Id,
+            "Name" => city.Name,
+            "CountryCode" => city.CountryCode,
+            "District" => city.District,
+            "Population" => city.Population,
+        )
+    
+        return city_dict
     end
 
     function createListOfCity(data)
@@ -16,7 +31,7 @@ module CityModel
             print(row)
             print(typeof(row[1]))
             city = convertRowIntoCity(row)
-            push!(listOfCountry, city)
+            push!(listOfCity, city)
         end
 
         return listOfCity
