@@ -34,7 +34,6 @@ class Country {
   }
 
   static createCountryFromJSON(jsonData) {
-    console.log(jsonData)
     // const countryData = JSON.parse(jsonData); 
     const countryData = jsonData; 
     const country = new Country(
