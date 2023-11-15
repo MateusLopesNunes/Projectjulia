@@ -5,7 +5,7 @@ const MainController = require("../controllers/mainController");
 
 router.get("/", MainController.showHome);
 router.get("/dashboard", MainController.showDashboard);
-router.get("/chart", MainController.showChartPopulation);
 router.post("/grafico", MainController.postGraphList);
+router.get("/getCountryCitys", MainController.getCountryCity);
 
 module.exports = router;

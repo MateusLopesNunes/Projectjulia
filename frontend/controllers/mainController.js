@@ -1,8 +1,12 @@
 const axios = require('axios'); 
 
 const Country = require('../model/country.js');
+const City = require("../model/city.js");
+
+const apiUrl = "http://127.0.0.1:8080";
 
 module.exports = class MainController {
+
    
     static async showHome (req, res) {
        
@@ -11,8 +15,9 @@ module.exports = class MainController {
 
     static async showDashboard (req, res){
         let countryData = {}
+        let url = `${apiUrl}/dashboard`;
 
-        await axios.get('http://127.0.0.1:8080/dashboard')
+        await axios.get(url)
         .then(response => {
             countryData = response.data;
         })
@@ -41,7 +46,9 @@ module.exports = class MainController {
 
         let listOfCountryJson = {};
 
-        await axios.post('http://127.0.0.1:8080/postGraph', listOfCountry)
+        let url = `${apiUrl}/postGraph`
+
+        await axios.post(url, listOfCountry)
         .then(response => {
             listOfCountryJson = response.data;
         })
@@ -78,21 +85,40 @@ module.exports = class MainController {
 
     }
 
-    static async showChartPopulation (req, res) {
-    //     let listOfLabel = req.query.label;
-    //     let listOfData = req.query.data;
+    static async getCountryCity(req, res){
+        let country = req.query.country;
 
-    //     console.log(listOfLabel);
-    //     console.log(listOfData);
+        let json = {
+            "country" : country
+        };
 
-    //     let chartData = {
-    //         "label" : `[${listOfLabel}]`,
-    //         "data" :`[${listOfData}]`,
-    //         "country" : listOfLabel
-    //     };
+        let url = `${apiUrl}/cityPerCountry`;
+
+        let countrysData;
+
+        await axios.post(url, json)
+        .then(response => {
+            countrysData = response.data;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+        let listOfCitys = [];
+
+        countrysData["Citys"].forEach((element) => {
+            let city = City.createCityFromJSON(element);
+            listOfCitys.push(city)
+        });
+
+        let jsonCity = {
+            "citys" : listOfCitys
+        }
+
+        res.json(jsonCity);
 
 
-    //     res.render("main/chart", {chartData});
-     }
+    }
 
+   
 }
