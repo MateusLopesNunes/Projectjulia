@@ -1,5 +1,125 @@
 
-<h1>Tela de dashboards</h1>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 ">
+        <h5>gráfico de população</h5>
+
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, laudantium dignissimos tempore cupiditate eum corrupti ipsa quasi magni incidunt excepturi consectetur? Dolorum nemo non impedit exercitationem velit, quos ducimus ab.</p>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Ver Gráfico</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h1 class="fs-3">Selecione os 5 Países desejados</h1>
+                        <select class="form-select" id="selectPais" aria-label="Default select example">
+                            <option selected>Selecione um País</option> 
+                            {{#each countrys}}
+                                <option value="{{this.Code}}">{{this.Name}}</option>
+                            {{/each}}
+                        </select>
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <div class="d-flex flex-column" id="listSelect">
+                                    <!-- Gerado no JS -->
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                            <form id="countryForm" action="http://127.0.0.1:3000/grafico" method="POST">
+                                <!-- Adicione um campo hidden para armazenar os países -->
+                                <input type="hidden" id="selectedCountries" name="selectedCountries" value="">
+                            </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="saveButton">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Ver Gráfico
+        </button>    
+    </div>
+    <div class="col-md-6">
+        <h5>gráfico de população de cidades</h5>
+
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor autem quia obcaecati consequatur reiciendis at temporibus similique. Sapiente iusto, est nihil, error sit provident animi laborum voluptatem eos perspiciatis dolorem.</p>
+         
+        <!-- Modal população das cidades -->
+        <div class="modal fade" id="cityPopulationModal" tabindex="-1" aria-labelledby="cityModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="cityModalLabel"> Gráfico de população dos países </h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <h1 class="fs-3">Selecione um  País </h1>
+                        <div class="row">
+                            <div class="col-6"> 
+                                <select class="form-select" id="selectCountryCity" aria-label="Default select city">
+                                    <option selected>Selecione um País</option> 
+                                    {{#each countrys}}
+                                        <option value="{{this.Code}}">{{this.Name}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                            <div class="col-6"> 
+                                <select class="form-select" id="selectCity" aria-label="Default select city">
+                                    
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <div class="d-flex flex-column" id="listSelect">
+                                    <!-- Gerado no JS -->
+                                    
+                                </div>
+                            </div>
+                            
+                        </div>
+                            <form id="cityForm" action="http://127.0.0.1:3000/grafico" method="POST">
+                                <!-- Adicione um campo hidden para armazenar os países -->
+                                <input type="hidden" id="selectedCountries" name="selectedCountries" value="">
+                            </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" id="saveButton">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cityPopulationModal">
+            Ver Gráfico
+        </button>
+    </div>
+  </div>
+  <div class="row" style="margin-bottom: 40px;"> 
+    <div class="col-md-6">
+      <h2>Grafico 3</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, consectetur explicabo dolor, laudantium accusamus labore similique corporis necessitatibus minima aperiam exercitationem, animi repellendus natus modi molestias tenetur totam aliquid fugit.</p>
+      
+      <button class="btn btn-primary">Exibir Grafico</button>
+    </div>
+    <div class="col-md-6">
+      <h2>Grafico 4</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa ratione fugit, nihil, cum aut optio voluptate sint natus delectus modi quisquam nesciunt dolorem sunt dicta temporibus, error aspernatur. Adipisci, nihil kelinhy hjghfuabfu.</p>
+      <button class="btn btn-primary">Exibir Grafico</button>
+    </div>
+  </div>
+</div>
+
+{{!-- 
 <div class="row mt-5">
     <div class="col-3">
         <h5>gráfico de população</h5>
@@ -15,8 +135,8 @@
     </div>
     <div class="col-3">
     </div>
-</div>
-
+</div> --}}
+{{!-- 
 <!-- Modal população -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -101,32 +221,45 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <script>
     const selectCountryCity = document.querySelector('#selectCountryCity');
-    selectCity.addEventListener("change", function (){
+    selectCountryCity.addEventListener("change", function (){
         let country = selectCountryCity.value;
 
         const requestOptions = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-            body: JSON.stringify(requestData) 
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
         };
 
-    fetch(apiUrl, requestOptions)
-        .then(response => response.json()) 
-        .then(data => {
-            console.log('Resposta da API:', data);
-        })
-        .catch(error => {
-            // Manipula erros de requisição
-            console.error('Erro na requisição:', error);
-        });
-        
+        let url = `http://127.0.0.1:3000/getCountryCitys?country=${country}`;
 
+        let listOfCity = {};
+        async function fetchCitys(){
+            try {
+            const response = await fetch(url, requestOptions)
+            const data = await response.json();
+            listOfCity = data;
+
+            let selectCity = document.getElementById('selectCity');
+            selectCity.innerHTML = '';
+
+            listOfCity["citys"].forEach((element) => {
+                let option = document.createElement('option');
+                option.value = element.name;
+                option.text = element.name;
+                selectCity.appendChild(option);
+            });
+
+        } catch (error){
+            console.log(error);
+        }
+    }
+    fetchCitys();
+       
     });
 
 
