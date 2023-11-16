@@ -60,7 +60,7 @@ module queryBuilder
         return listOfCity
     end
 
-    function listOfCityPopulation(listOfCity::Vector{String})
+    function listOfCityPopulation(listOfCity::Vector{Any})
 
         inParameter = ""
         for city in listOfCity

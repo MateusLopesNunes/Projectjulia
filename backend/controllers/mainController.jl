@@ -311,7 +311,7 @@ module mainController
 
     end
 
-    function postPopulation(req::HTTP.Request)
+    function postCountryPopulation(req::HTTP.Request)
         content_type =  HTTP.header(req, "Content-Type")
         if  content_type == "application/json"
             try
@@ -369,6 +369,39 @@ module mainController
             
             catch e
                 return HTTP.Response(404, "Erro: $e");
+
+                println("Erro ao analisar os dados JSON da requisição: $e")
+            end
+        end
+    end
+
+    function postCityPopulation(req::HTTP.Request)
+        content_type =  HTTP.header(req, "Content-Type")
+        if  content_type == "application/json"
+            try
+                println("numero 1")
+                json_data = JSON.parse(IOBuffer(req.body))
+                data = json_data["citys"]
+                println(data)
+                listOfCity = queryBuilder.listOfCityPopulation(data)
+                println(listOfCity)
+
+                listOfCityJson = []
+                for city in listOfCity
+                    push!(listOfCityJson, queryBuilder.cityToJson(city))
+                end
+        
+                data = Dict(
+                    "citys" => listOfCityJson
+                )
+        
+                json = JSON.json(data)
+
+        
+                return HTTP.Response(200, json );
+            
+            catch e
+                return HTTP.Response(404, "Erro");
 
                 println("Erro ao analisar os dados JSON da requisição: $e")
             end
