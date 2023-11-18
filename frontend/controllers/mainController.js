@@ -132,26 +132,46 @@ module.exports = class MainController {
         
         let url = `${apiUrl}/city/population`;
 
-        await axios.post(url, listOfCitys)
-        .then(response => {
-            listOfCitysJson = response.data;
-        })
-        .catch(error => {
-            console.error(error);
-        });
+        try {
+            await axios.post(url, listOfCitys)
+            .then(response => {
+                listOfCitysJson = response.data;
+                console.log(response.data)
+            })
+            .catch(error => {
+                console.error(error);
+            });
+    
+            let listofCityObj = [];
+            listOfCitysJson["citys"].forEach((element) => {
+                let city = City.createCityFromJSON(element);
+                listofCityObj.push(city)
+            });
 
-        let listofCityObj;
-        listOfCitysJson["citys"].forEach((element) => {
-            let city = City.createCityFromJSON(element);
-            listofCityObj.push(city)
-        });
+            let listOflabelWithQuotes = [];
+            listofCityObj.forEach((element) => {
+                let label = `"${element.name}"`;
+                listOflabelWithQuotes.push(label)
+            });
 
-        
+            let listOfData = [];
+            listofCityObj.forEach((element) => {
+                listOfData.push(element.population);
+            });    
+    
+            let chartDataCity = {
+                "label" : `[${listOflabelWithQuotes}]`,
+                "data" :`[${listOfData}]`,
+                "city" : listofCityObj
+            };
 
+            console.log(chartDataCity)
 
-
-
+            res.render("main/chartCity", chartDataCity)
+    
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-   
 }

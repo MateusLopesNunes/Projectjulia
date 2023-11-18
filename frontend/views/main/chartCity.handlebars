@@ -1,0 +1,90 @@
+<h1 class="text-center mt-3 fs-2 text">Gráfico de população dos países selecionados</h1>
+<div class="row mt-5">
+    <div class="col-3">
+    </div>
+    <div class="col-6">
+        <canvas id="myChart"></canvas>
+    </div>
+    <div class="col-3">
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-3">
+    </div>
+    <div class="col-6">
+        <button type="button" class="btn btn-primary" id="showModalButton"> Mostrar mais Informações </button>
+    </div>
+    <div class="col-3">
+    </div>
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog  modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Ver Gráfico</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h1 class="fs-3">Informações dos Paises</h1>
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th scope="col">Nome </th>
+                            <th scope="col">Pais</th>
+                            <th scope="col">Estado</th>
+                            <th scope="col">População </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each chartDataCity.city}}
+                            <tr>
+                                <td>{{this.City.name}} </td>
+                                <td>{{this.City.countryCode}} </td>
+                                <td>{{this.City.district}} </td>
+                                <td>{{this.City.population}} </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+            <script>
+                let showModalButton = document.getElementById('showModalButton');
+                    showModalButton.addEventListener('click', function() {
+                        let myModal = new bootstrap.Modal(document.getElementById('exampleModal'));
+                        myModal.show();
+                    });
+            </script>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function chart() {
+        const ctx = document.getElementById('myChart');
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+            labels: {{{chartDataCity.label}}},
+            datasets: [{
+                label: 'População das cidades selecionados',
+                data: {{chartDataCity.data}},
+                borderWidth: 1
+            }]
+            },
+            options: {
+            scales: {
+                y: {
+                beginAtZero: true
+                }
+            }
+            }
+        });
+    }
+
+    chart()
+</script>

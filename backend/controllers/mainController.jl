@@ -345,13 +345,10 @@ module mainController
         content_type =  HTTP.header(req, "Content-Type")
         if  content_type == "application/json"
             try
-                println("passou 0")
                 json_data = JSON.parse(IOBuffer(req.body))
                 data = json_data["country"]
-                println(data)
                 listOfCity = queryBuilder.returnListOfCityPerCountry(data)
                 
-                println(listOfCity)
 
                 listOfCityJson = []
                 for city in listOfCity
@@ -379,12 +376,9 @@ module mainController
         content_type =  HTTP.header(req, "Content-Type")
         if  content_type == "application/json"
             try
-                println("numero 1")
                 json_data = JSON.parse(IOBuffer(req.body))
                 data = json_data["citys"]
-                println(data)
                 listOfCity = queryBuilder.listOfCityPopulation(data)
-                println(listOfCity)
 
                 listOfCityJson = []
                 for city in listOfCity
@@ -397,7 +391,7 @@ module mainController
         
                 json = JSON.json(data)
 
-        
+                println(json)
                 return HTTP.Response(200, json );
             
             catch e
