@@ -1,52 +1,57 @@
 
 <div class="container">
-  <div class="row">
-    <div class="col-md-6 ">
-        <h5>gráfico de população</h5>
+    <div class="row">
+        <div "col-md-3"></div>
+        <div class="col-md-6">
+            <h5>Grráfico populacional de países</h5>
 
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores, laudantium dignissimos tempore cupiditate eum corrupti ipsa quasi magni incidunt excepturi consectetur? Dolorum nemo non impedit exercitationem velit, quos ducimus ab.</p>
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabel">Ver Gráfico</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h1 class="fs-3">Selecione os 5 Países desejados</h1>
-                        <select class="form-select" id="selectPais" aria-label="Default select example">
-                            <option selected>Selecione um País</option> 
-                            {{#each countrys}}
-                                <option value="{{this.Code}}">{{this.Name}}</option>
-                            {{/each}}
-                        </select>
-                        <div class="row mt-3">
-                            <div class="col-6">
-                                <div class="d-flex flex-column" id="listSelect">
-                                    <!-- Gerado no JS -->
-                                    
-                                </div>
-                            </div>
-                            
+            <p>O gráfico representa a distribuição populacional por país, evidenciando as disparidades demográficas globais. As barras revelam a variação de tamanho populacional entre nações, destacando as potências populacionais e as diferenças significativas entre regiões. Países como China e Índia se destacam com grandes números, enquanto outras nações menores aparecem com proporções mais modestas. Essa representação visual oferece insights sobre a dinâmica demográfica e a diversidade populacional em escala global.</p>
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Ver Gráfico</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                            <form id="countryForm" action="http://127.0.0.1:3000/grafico" method="POST">
-                                <!-- Adicione um campo hidden para armazenar os países -->
-                                <input type="hidden" id="selectedCountries" name="selectedCountries" value="">
-                            </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="saveButton">Save changes</button>
+                        <div class="modal-body">
+                            <h1 class="fs-3">Selecione os 5 Países desejados</h1>
+                            <select class="form-select" id="selectPais" aria-label="Default select example">
+                                <option selected>Selecione um País</option> 
+                                {{#each countrys}}
+                                    <option value="{{this.Code}}">{{this.Name}}</option>
+                                {{/each}}
+                            </select>
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <div class="d-flex flex-column" id="listSelect">
+                                        <!-- Gerado no JS -->
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                                <form id="countryForm" action="http://127.0.0.1:3000/grafico" method="POST">
+                                    <!-- Adicione um campo hidden para armazenar os países -->
+                                    <input type="hidden" id="selectedCountries" name="selectedCountries" value="">
+                                </form>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary" id="saveButton">Save changes</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Ver Gráfico
-        </button>    
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                Ver Gráfico
+            </button>    
+        </div>
+        <div class="col-md-3"></div>
     </div>
-    <div class="col-md-6">
+
+
+    <div class="col-md-8">
         <h5>gráfico de população de cidades</h5>
 
         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor autem quia obcaecati consequatur reiciendis at temporibus similique. Sapiente iusto, est nihil, error sit provident animi laborum voluptatem eos perspiciatis dolorem.</p>
@@ -60,11 +65,11 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <h1 class="fs-3">Selecione um  Cidade </h1>
+                        <h1 class="fs-3">Selecione um  Pais e depois selecione 5 cidade </h1>
                         <div class="row">
                             <div class="col-6"> 
                                 <select class="form-select" id="selectCountryCity" aria-label="Default select city">
-                                    <option selected>Selecione uma Cidade</option> 
+                                    <option selected>Selecione um País</option> 
                                     {{#each countrys}}
                                         <option value="{{this.Code}}">{{this.Name}}</option>
                                     {{/each}}
@@ -103,20 +108,7 @@
             Ver Gráfico
         </button>
     </div>
-  </div>
-  <div class="row" style="margin-bottom: 40px;"> 
-    <div class="col-md-6">
-      <h2>Grafico 3</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque, consectetur explicabo dolor, laudantium accusamus labore similique corporis necessitatibus minima aperiam exercitationem, animi repellendus natus modi molestias tenetur totam aliquid fugit.</p>
-      
-      <button class="btn btn-primary">Exibir Grafico</button>
-    </div>
-    <div class="col-md-6">
-      <h2>Grafico 4</h2>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa ratione fugit, nihil, cum aut optio voluptate sint natus delectus modi quisquam nesciunt dolorem sunt dicta temporibus, error aspernatur. Adipisci, nihil kelinhy hjghfuabfu.</p>
-      <button class="btn btn-primary">Exibir Grafico</button>
-    </div>
-  </div>
+
 </div>
 
 <script>

@@ -167,7 +167,7 @@ module.exports = class MainController {
 
             console.log(chartDataCity)
 
-            res.render("main/chartCity", chartDataCity)
+            res.render("main/chartCity", {chartDataCity})
     
         } catch (error) {
             console.log(error)
