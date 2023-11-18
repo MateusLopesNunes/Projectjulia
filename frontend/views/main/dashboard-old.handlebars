@@ -1,0 +1,209 @@
+
+<h1>Tela de dashboards</h1>
+<div class="row mt-5">
+    <div class="col-3">
+        <h5>gráfico de população</h5>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            Ver Gráfico
+        </button>
+    </div>
+    <div class="col-3">
+        <h5>gráfico de população de cidades</h5>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cityPopulationModal">
+            Ver Gráfico
+        </button>
+    </div>
+    <div class="col-3">
+    </div>
+</div>
+
+<!-- Modal população -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Ver Gráfico</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h1 class="fs-3">Selecione os 5 Países desejados</h1>
+                <select class="form-select" id="selectPais" aria-label="Default select example">
+                    <option selected>Selecione um País</option> 
+                    {{#each countrys}}
+                        <option value="{{this.Code}}">{{this.Name}}</option>
+                    {{/each}}
+                </select>
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="d-flex flex-column" id="listSelect">
+                            <!-- Gerado no JS -->
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+                    <form id="countryForm" action="http://127.0.0.1:3000/grafico" method="POST">
+                        <!-- Adicione um campo hidden para armazenar os países -->
+                        <input type="hidden" id="selectedCountries" name="selectedCountries" value="">
+                    </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="saveButton">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal população das cidades -->
+<div class="modal fade" id="cityPopulationModal" tabindex="-1" aria-labelledby="cityModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="cityModalLabel"> Gráfico de população dos países </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h1 class="fs-3">Selecione um  País </h1>
+                <div class="row">
+                    <div class="col-6"> 
+                        <select class="form-select" id="selectCountryCity" aria-label="Default select city">
+                            <option selected>Selecione um País</option> 
+                            {{#each countrys}}
+                                <option value="{{this.Code}}">{{this.Name}}</option>
+                            {{/each}}
+                        </select>
+                    </div>
+                    <div class="col-6"> 
+                        <select class="form-select" id="selectCity" aria-label="Default select city">
+                            
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-6">
+                        <div class="d-flex flex-column" id="listSelect">
+                            <!-- Gerado no JS -->
+                            
+                        </div>
+                    </div>
+                    
+                </div>
+                    <form id="cityForm" action="http://127.0.0.1:3000/grafico" method="POST">
+                        <!-- Adicione um campo hidden para armazenar os países -->
+                        <input type="hidden" id="selectedCountries" name="selectedCountries" value="">
+                    </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" id="saveButton">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const selectCountryCity = document.querySelector('#selectCountryCity');
+    selectCity.addEventListener("change", function (){
+        let country = selectCountryCity.value;
+
+        const requestOptions = {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+            body: JSON.stringify(requestData) 
+        };
+
+    fetch(apiUrl, requestOptions)
+        .then(response => response.json()) 
+        .then(data => {
+            console.log('Resposta da API:', data);
+        })
+        .catch(error => {
+            // Manipula erros de requisição
+            console.error('Erro na requisição:', error);
+        });
+        
+
+    });
+
+
+</script>
+
+<script>
+    const selectPais = document.querySelector('#selectPais');
+    let listSelect = document.querySelector('#listSelect');
+    let saveButton = document.getElementById('saveButton');
+    let selectedCountriesInput = document.getElementById('selectedCountries');
+
+    let listPais = [];
+
+    function getValueSelect() {
+        selectPais.addEventListener('change', function () {
+            if (listPais.length < 5 && !listPais.includes(selectPais.value)) {
+                listPais.push(selectPais.value);
+                listPais = Array.from(new Set(listPais));
+                console.log(listPais);
+                updateList();
+            } else {
+                alert('Você pode selecionar no máximo 5 países.');
+            }
+        });
+    }
+
+    function updateList() {
+        listSelect.innerHTML = '';
+
+        listPais.forEach(function (pais, index) {
+            const listItem = document.createElement('div');
+            listItem.classList.add('d-flex', 'flex-row', 'align-items-center');
+
+            const paragraph = document.createElement('p');
+            paragraph.classList.add('p-2', 'm-0');
+            paragraph.textContent = pais;
+
+            const deleteButton = document.createElement('button');
+            deleteButton.classList.add('btn');
+            deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
+            deleteButton.addEventListener('click', function () {
+                listPais.splice(index, 1);
+                updateList();
+            });
+
+            listItem.appendChild(paragraph);
+            listItem.appendChild(deleteButton);
+
+            listSelect.appendChild(listItem);
+        });
+
+        // Atualiza o valor do campo hidden com os países selecionados
+        selectedCountriesInput.value = listPais.join(',');
+    }
+
+    saveButton.addEventListener('click', function () {
+        if (listPais.length === 5) {
+            // Submete o formulário
+            document.getElementById('countryForm').submit();
+        } else {
+            alert("Você precisa selecionar 5 países");
+        }
+    });
+
+    document.getElementById('countryForm').addEventListener('submit', function (event) {
+        const existingHiddenInput = document.getElementById('selectedCountries');
+        if (existingHiddenInput) {
+            existingHiddenInput.remove();
+        }
+
+        const newHiddenInput = document.createElement('input');
+        newHiddenInput.type = 'hidden';
+        newHiddenInput.id = 'selectedCountries';
+        newHiddenInput.name = 'selectedCountries';
+        newHiddenInput.value = listPais.join(',');
+
+        document.getElementById('countryForm').appendChild(newHiddenInput);
+    });
+    getValueSelect();
+</script>

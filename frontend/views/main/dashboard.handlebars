@@ -1,4 +1,4 @@
-{{!-- 
+
 <div class="container">
   <div class="row">
     <div class="col-md-6 ">
@@ -56,15 +56,15 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="cityModalLabel"> Gráfico de população dos países </h1>
+                        <h1 class="modal-title fs-5" id="cityModalLabel"> Gráfico de população dos Cidades </h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <h1 class="fs-3">Selecione um  País </h1>
+                        <h1 class="fs-3">Selecione um  Cidade </h1>
                         <div class="row">
                             <div class="col-6"> 
                                 <select class="form-select" id="selectCountryCity" aria-label="Default select city">
-                                    <option selected>Selecione um País</option> 
+                                    <option selected>Selecione uma Cidade</option> 
                                     {{#each countrys}}
                                         <option value="{{this.Code}}">{{this.Name}}</option>
                                     {{/each}}
@@ -79,21 +79,21 @@
 
                         <div class="row mt-3">
                             <div class="col-6">
-                                <div class="d-flex flex-column" id="listSelect">
+                                <div class="d-flex flex-column" id="listSelectCity">
                                     <!-- Gerado no JS -->
                                     
                                 </div>
                             </div>
                             
                         </div>
-                            <form id="cityForm" action="http://127.0.0.1:3000/grafico" method="POST">
+                            <form id="cityForm" action="http://127.0.0.1:3000/grafico_cidade" method="POST">
                                 <!-- Adicione um campo hidden para armazenar os países -->
-                                <input type="hidden" id="selectedCountries" name="selectedCountries" value="">
+                                <input type="hidden" id="selectedCitys" name="selectedCitys" value="">
                             </form>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="saveButton">Save changes</button>
+                        <button type="submit" class="btn btn-primary" id="saveButtonCity">Save changes</button>
                     </div>
                 </div>
             </div>
@@ -117,111 +117,7 @@
       <button class="btn btn-primary">Exibir Grafico</button>
     </div>
   </div>
-</div> --}}
-
-
-<div class="row mt-5">
-    <div class="col-3">
-        <h5>gráfico de população</h5>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-            Ver Gráfico
-        </button>
-    </div>
-    <div class="col-3">
-        <h5>gráfico de população de cidades</h5>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cityPopulationModal">
-            Ver Gráfico
-        </button>
-    </div>
-    <div class="col-3">
-    </div>
-</div> 
-
-<!-- Modal população -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Ver Gráfico</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h1 class="fs-3">Selecione os 5 Países desejados</h1>
-                <select class="form-select" id="selectPais" aria-label="Default select example">
-                    <option selected>Selecione um País</option> 
-                    {{#each countrys}}
-                        <option value="{{this.Code}}">{{this.Name}}</option>
-                    {{/each}}
-                </select>
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <div class="d-flex flex-column" id="listSelect">
-                            <!-- Gerado no JS -->
-                            
-                        </div>
-                    </div>
-                    
-                </div>
-                    <form id="countryForm" action="http://127.0.0.1:3000/grafico" method="POST">
-                        <!-- Adicione um campo hidden para armazenar os países -->
-                        <input type="hidden" id="selectedCountries" name="selectedCountries" value="">
-                    </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" id="saveButton">Save changes</button>
-            </div>
-        </div>
-    </div>
 </div>
-
-<!-- Modal população das cidades -->
-<div class="modal fade" id="cityPopulationModal" tabindex="-1" aria-labelledby="cityModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1 class="modal-title fs-5" id="cityModalLabel"> Gráfico de população dos países </h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <h1 class="fs-3">Selecione um  País </h1>
-                <div class="row">
-                    <div class="col-6"> 
-                        <select class="form-select" id="selectCountryCity" aria-label="Default select city">
-                            <option selected>Selecione um País</option> 
-                            {{#each countrys}}
-                                <option value="{{this.Code}}">{{this.Name}}</option>
-                            {{/each}}
-                        </select>
-                    </div>
-                    <div class="col-6"> 
-                        <select class="form-select" id="selectCity" aria-label="Default select city">
-                            
-                        </select>
-                    </div>
-                </div>
-
-                <div class="row mt-3">
-                    <div class="col-6">
-                        <div class="d-flex flex-column" id="listSelect">
-                            <!-- Gerado no JS -->
-                            
-                        </div>
-                    </div>
-                    
-                </div>
-                    <form id="cityForm" action="http://127.0.0.1:3000/grafico" method="POST">
-                        <!-- Adicione um campo hidden para armazenar os países -->
-                        <input type="hidden" id="selectedCountries" name="selectedCountries" value="">
-                    </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" id="saveButton">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div> 
 
 <script>
     const selectCountryCity = document.querySelector('#selectCountryCity');
@@ -261,8 +157,84 @@
     fetchCitys();
        
     });
+</script>
 
+{{!-- enviar cidades --}}
+<script>
+    const selectCity = document.querySelector('#selectCity');
+    let listSelectCity = document.querySelector('#listSelectCity');
+    let saveButtonCity = document.getElementById('saveButtonCity');
+    let selectedCitysInput = document.getElementById('selectedCitys');
 
+    let listOfCitys = [];
+
+    function getValueSelectCity() {
+        selectCity.addEventListener('change', function () {
+            if (listOfCitys.length < 5 && !listOfCitys.includes(selectCity.value)) {
+                listOfCitys.push(selectCity.value);
+                listOfCitys = Array.from(new Set(listOfCitys));
+                console.log(listOfCitys);
+                updateListCity();
+            } else {
+                alert('Você pode selecionar no máximo 5 países.');
+            }
+        });
+    }
+
+    function updateListCity() {
+        listSelectCity.innerHTML = '';
+
+        listOfCitys.forEach(function (city, index) {
+            const listItemCity = document.createElement('div');
+            listItemCity.classList.add('d-flex', 'flex-row', 'align-items-center');
+
+            const paragraphCity = document.createElement('p');
+            paragraphCity.classList.add('p-2', 'm-0');
+            paragraphCity.textContent = city;
+
+            const deleteButtonCity = document.createElement('button');
+            deleteButtonCity.classList.add('btn');
+            deleteButtonCity.innerHTML = '<i class="bi bi-trash"></i>';
+            deleteButtonCity.addEventListener('click', function () {
+                listOfCitys.splice(index, 1);
+                updateListCity();
+            });
+
+            listItemCity.appendChild(paragraphCity);
+            listItemCity.appendChild(deleteButtonCity);
+
+            listSelectCity.appendChild(listItemCity);
+        });
+
+        // Atualiza o valor do campo hidden com os países selecionados
+        selectedCitysInput.value = listOfCitys.join(',');
+    }
+
+    saveButtonCity.addEventListener('click', function () {
+        if (listOfCitys.length === 5) {
+            // Submete o formulário
+            document.getElementById('cityForm').submit();
+        } else {
+            alert("Você precisa selecionar 5 cidades");
+        }
+    });
+
+    // Certifique-se de que o campo hidden seja removido do formulário antes de adicionar um novo
+    document.getElementById('cityForm').addEventListener('submit', function (event) {
+        const existingHiddenInputCity = document.getElementById('selectedCitys');
+        if (existingHiddenInputCity) {
+            existingHiddenInputCity.remove();
+        }
+
+        const newHiddenInput = document.createElement('input');
+        newHiddenInput.type = 'hidden';
+        newHiddenInput.id = 'selectedCountries';
+        newHiddenInput.name = 'selectedCountries';
+        newHiddenInput.value = listOfCitys.join(',');
+
+        document.getElementById('cityForm').appendChild(newHiddenInput);
+    });
+    getValueSelectCity();
 </script>
 
 <script>

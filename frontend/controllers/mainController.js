@@ -120,5 +120,38 @@ module.exports = class MainController {
 
     }
 
+    static async postGraphListOfCity(req, res){
+        let listOfCityRaw = req.body["selectedCitys"]
+        let listCity = listOfCityRaw.split(',');
+
+        let listOfCitys = {
+            "citys" : listCity
+        };
+
+        let listOfCitysJson = {};
+        
+        let url = `${apiUrl}/city/population`;
+
+        await axios.post(url, listOfCitys)
+        .then(response => {
+            listOfCitysJson = response.data;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+        let listofCityObj;
+        listOfCitysJson["citys"].forEach((element) => {
+            let city = City.createCityFromJSON(element);
+            listofCityObj.push(city)
+        });
+
+        
+
+
+
+
+    }
+
    
 }
