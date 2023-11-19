@@ -79,9 +79,10 @@ module queryBuilder
         for row in data
             count = row[2]
             countryCode = row[1]
-            if count <= 5
+            if count < 5
                 push!(listOfCity, countryCode)
             end
+            
         end
 
         inParameter = ""
