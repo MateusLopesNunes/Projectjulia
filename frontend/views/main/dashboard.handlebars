@@ -19,7 +19,7 @@
                             <h5>Selecione os 5 Países desejados</h5>
                             <select class="form-select" id="selectPais" aria-label="Default select example">
                                 <option selected>Selecione um País</option> 
-                                {{#each countrys}}
+                                {{#each jsonData.country}}
                                     <option value="{{this.Code}}">{{this.Name}}</option>
                                 {{/each}}
                             </select>
@@ -74,7 +74,7 @@
                                 <div class="col-6"> 
                                     <select class="form-select" id="selectCountryCity" aria-label="Default select city">
                                         <option selected> Selecione um País </option> 
-                                        {{#each countrys}}
+                                        {{#each  jsonData.country5 }}
                                             <option value="{{this.Code}}">{{this.Name}}</option>
                                         {{/each}}
                                     </select>
