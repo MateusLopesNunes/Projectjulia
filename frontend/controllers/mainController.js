@@ -32,9 +32,32 @@ module.exports = class MainController {
             let country = Country.createCountryFromJSON(element);
             countrys.push(country);
         })
-        
-        //console.log(countrys)
-        res.render("main/dashboard", {countrys});
+
+        let countryData5 = {}
+        let url5 = `${apiUrl}/dashboard5`;
+
+        await axios.get(url5)
+        .then(response => {
+            countryData5 = response.data;
+        })
+        .catch(error => {
+            console.error(error);
+        });
+
+        let countrys5 = []
+        countryData5["countrys"].forEach(element => {
+            let country = Country.createCountryFromJSON(element);
+            countrys5.push(country);
+        })
+
+        let jsonData = {
+            "country" : countrys,
+            "country5" : countrys5
+        };
+
+        console.log(jsonData)
+
+        res.render("main/dashboard", {jsonData});
     }
 
     static async postGraphList(req, res){

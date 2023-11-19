@@ -67,6 +67,38 @@ module queryBuilder
         return listOfCity
     end
 
+    function listOfCountryWithMorethenfiveCitys()
+        sqlQuery = "SELECT c.CountryCode, COUNT(c.CountryCode) AS count, p.Name
+        FROM city c
+        JOIN country p ON c.countryCode = p.Code
+        GROUP BY c.CountryCode, p.Name;"
+
+        data = sqlGet(sqlQuery)
+        listOfCity = [];
+
+        for row in data
+            count = row[2]
+            countryCode = row[1]
+            if count <= 5
+                push!(listOfCity, countryCode)
+            end
+        end
+
+        inParameter = ""
+        for city in listOfCity
+            inParameter = inParameter * "'$city', "
+        end
+
+        inParameter = inParameter[1:(length(inParameter) - 2)]
+
+        queryCountry = "SELECT * FROM country WHERE Code NOT IN ($inParameter);"
+        dataCountry = sqlGet(queryCountry)
+
+        listOfCountry = CountryModel.createListOfCountry(dataCountry)
+        
+        return listOfCountry
+    end
+
     function countryToJson(country::Country)
         return CountryModel.country_to_json(country)
     end
@@ -74,4 +106,6 @@ module queryBuilder
     function cityToJson(city::City)
         return CityModel.city_to_json(city)
     end
+
+    listOfCountryWithMorethenfiveCitys()
 end
