@@ -28,13 +28,6 @@ module queryBuilder
 
     end
 
-    # function sqlGetCountry(parameter)
-    #     sql_query  = "select * from country where Code='?';"
-    #     params = (parameter,)  # Tupla com os valores dos parâmetros
-    #     data = sqlGetPrepare(sql_query, params)
-    #     return data
-    # end
-
     function listOfPopulation(listOfCountry::Vector{Any})
 
         inParameter = ""
@@ -43,8 +36,6 @@ module queryBuilder
         end
 
         inParameter = inParameter[1:(length(inParameter) - 2)]
-        #sqlQuery = "SELECT * FROM Country WHERE Code IN (?);"
-        # data = sqlGetPrepare(sqlQuery, listOfCountry)
         sqlQuery = "SELECT * FROM Country WHERE Code IN ($inParameter);"
         data = sqlGet(sqlQuery)
 
@@ -68,8 +59,6 @@ module queryBuilder
         end
 
         inParameter = inParameter[1:(length(inParameter) - 2)]
-        #sqlQuery = "SELECT * FROM Country WHERE Code IN (?);"
-        # data = sqlGetPrepare(sqlQuery, listOfCountry)
         sqlQuery = "SELECT * FROM City WHERE Name IN ($inParameter);"
         data = sqlGet(sqlQuery)
 

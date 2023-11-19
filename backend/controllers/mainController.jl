@@ -1,15 +1,12 @@
 module mainController
 
     include("../db/querys.jl")
-    #include("../public/templates/template.jl")
-    #include("../public/templates/base.jl")
 
     using HTTP,  Mustache, DataFrames, NodeJS, JSON
     using .queryBuilder
 
-    #using template
-    #using .baseTemplate
-
+    #Template String com mustache
+    #Legado
     template = mt"""
     <html>
         <head>
@@ -243,39 +240,6 @@ module mainController
         """
 
 
-
-    function getHome(req::HTTP.Request)
-
-        return HTTP.Response(200, read("public/index.html"));
-    end
-
-    function getDashboard(req::HTTP.Request)
-
-        listOfCountry = queryBuilder.returnListOfCountry()
-        listOfValue = []
-        for country in listOfCountry
-            push!(listOfValue, country.Name)
-        end
-    
-        listOfOption = []
-        for country in listOfValue 
-            push!(listOfOption, country)
-        end
-
-        listOfCountryJson = []
-        for  country in listOfCountry
-            push!(listOfCountryJson, queryBuilder.countryToJson(country))
-        end
-
-        data = Dict(
-            "countrys" => listOfCountryJson
-        )
-
-        json = JSON.json(data)
-
-        return HTTP.Response(200, json );
-    end
-
     function getTemplate(req::HTTP.Request)
         
     listOfCountry = queryBuilder.returnListOfCountry()
@@ -297,19 +261,11 @@ module mainController
     optionData = render(optionsHTML, F=f)
     finalHTML = render(template, TITLE="O titulo usa template ", D=d, E=e, GRAPH=out, OPTIONS=optionData )
 
-
-
-    # out = render(graphData,  DATA="[ 50, 40, 30, 20, 5] ")
-    # graphHtml = render(template, TITLE="O titulo usa template ", D=d, E=e, F=out )
-    # finalHTML = render(graphHtml, F=f )
-
-    # finalTemplate = baseTemplate.returnTemplateFill(out)
-    # println(finalTemplate)
-
-
     return HTTP.Response(200, finalHTML);
-
     end
+
+
+    #API utilizando a biblioteca HTTP.jl
 
     function postCountryPopulation(req::HTTP.Request)
         content_type =  HTTP.header(req, "Content-Type")

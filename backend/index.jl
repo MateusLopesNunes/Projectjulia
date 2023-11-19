@@ -14,6 +14,3 @@ HTTP.register!(ROUTER, "POST", "/cityPerCountry", mainController.getCityPerCount
 HTTP.register!(ROUTER, "POST", "/city/population", mainController.postCityPopulation)
 
 server = HTTP.serve(ROUTER, Sockets.localhost, 8080)
-
-# close(server)
-# @assert istaskdone(server.task)
