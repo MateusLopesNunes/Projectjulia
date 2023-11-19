@@ -1,20 +1,21 @@
 
 <div class="container">
-    <div class="row">
-        <div "col-md-3"></div>
-        <div class="col-md-6">
-            <h5>Grráfico populacional de países</h5>
+    <div class="row mt-5">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h5>Gráfico populacional de países</h5>
 
             <p>O gráfico representa a distribuição populacional por país, evidenciando as disparidades demográficas globais. As barras revelam a variação de tamanho populacional entre nações, destacando as potências populacionais e as diferenças significativas entre regiões. Países como China e Índia se destacam com grandes números, enquanto outras nações menores aparecem com proporções mais modestas. Essa representação visual oferece insights sobre a dinâmica demográfica e a diversidade populacional em escala global.</p>
+            <p>Para realizar a pesquisa é necessário clicar em 5 países e clicar no botão de buscar</p>
             <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="exampleModalLabel">Ver Gráfico</h1>
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Gráfico de população de Paises</h1>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            <h1 class="fs-3">Selecione os 5 Países desejados</h1>
+                            <h5>Selecione os 5 Países desejados</h5>
                             <select class="form-select" id="selectPais" aria-label="Default select example">
                                 <option selected>Selecione um País</option> 
                                 {{#each countrys}}
@@ -36,8 +37,8 @@
                                 </form>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary" id="saveButton">Save changes</button>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary" id="saveButton">Salvar</button>
                         </div>
                     </div>
                 </div>
@@ -47,67 +48,73 @@
                 Ver Gráfico
             </button>    
         </div>
-        <div class="col-md-3"></div>
+        <div class="col-md-2"></div>
     </div>
 
+    <div class="row mt-5">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            <h5>gráfico de população de cidades</h5>
 
-    <div class="col-md-8">
-        <h5>gráfico de população de cidades</h5>
+            <p>O gráfico ilustra a distribuição populacional entre as cidades de um país específico, revelando contrastes significativos em tamanho e densidade demográfica. Capitais como São Paulo e Rio de Janeiro se destacam como centros populacionais proeminentes, enquanto cidades menores exibem números mais modestos. Essa representação visual oferece insights sobre a estrutura urbana do país, evidenciando a diversidade populacional e a concentração em centros urbanos específicos.</p>
+            <p>Para realizar a pesquisa é necessário selecionar o País e após isso selecionar 5 cidades</p>
 
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor autem quia obcaecati consequatur reiciendis at temporibus similique. Sapiente iusto, est nihil, error sit provident animi laborum voluptatem eos perspiciatis dolorem.</p>
-         
-        <!-- Modal população das cidades -->
-        <div class="modal fade" id="cityPopulationModal" tabindex="-1" aria-labelledby="cityModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="cityModalLabel"> Gráfico de população dos Cidades </h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h1 class="fs-3">Selecione um  Pais e depois selecione 5 cidade </h1>
-                        <div class="row">
-                            <div class="col-6"> 
-                                <select class="form-select" id="selectCountryCity" aria-label="Default select city">
-                                    <option selected>Selecione um País</option> 
-                                    {{#each countrys}}
-                                        <option value="{{this.Code}}">{{this.Name}}</option>
-                                    {{/each}}
-                                </select>
-                            </div>
-                            <div class="col-6"> 
-                                <select class="form-select" id="selectCity" aria-label="Default select city">
-                                    
-                                </select>
-                            </div>
+            <!-- Modal população das cidades -->
+            <div class="modal fade" id="cityPopulationModal" tabindex="-1" aria-labelledby="cityModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="cityModalLabel"> Gráfico de população de cidades por País </h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-
-                        <div class="row mt-3">
-                            <div class="col-6">
-                                <div class="d-flex flex-column" id="listSelectCity">
-                                    <!-- Gerado no JS -->
-                                    
+                        <div class="modal-body">
+                            <h5>Selecione um  Pais e depois selecione 5 cidade </h5>
+                            <div class="row">
+                                <div class="col-6"> 
+                                    <select class="form-select" id="selectCountryCity" aria-label="Default select city">
+                                        <option selected> Selecione um País </option> 
+                                        {{#each countrys}}
+                                            <option value="{{this.Code}}">{{this.Name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <div class="col-6"> 
+                                    <select class="form-select" id="selectCity" aria-label="Default select city">
+                                        <option selected> Selecione uma cidade </option> 
+                                    </select>
                                 </div>
                             </div>
-                            
+
+                            <div class="row mt-3">
+                                <div class="col-6">
+                                    <div class="d-flex flex-column" id="listSelectCity">
+                                        <!-- Gerado no JS -->
+                                        
+                                    </div>
+                                </div>
+                                
+                            </div>
+                                <form id="cityForm" action="http://127.0.0.1:3000/grafico_cidade" method="POST">
+                                    <!-- Adicione um campo hidden para armazenar os países -->
+                                    <input type="hidden" id="selectedCitys" name="selectedCitys" value="">
+                                </form>
                         </div>
-                            <form id="cityForm" action="http://127.0.0.1:3000/grafico_cidade" method="POST">
-                                <!-- Adicione um campo hidden para armazenar os países -->
-                                <input type="hidden" id="selectedCitys" name="selectedCitys" value="">
-                            </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary" id="saveButtonCity">Save changes</button>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                            <button type="submit" class="btn btn-primary" id="saveButtonCity">Salvar</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cityPopulationModal">
-            Ver Gráfico
-        </button>
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cityPopulationModal">
+                Ver Gráfico
+            </button>
+        </div>
+        <div class="col-md-2"></div>
     </div>
+    
+
 
 </div>
 
