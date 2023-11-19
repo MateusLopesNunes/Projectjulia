@@ -1,5 +1,6 @@
 
 <div class="container">
+
     <div class="row mt-5">
         <div class="col-md-2"></div>
         <div class="col-md-8">
@@ -177,7 +178,7 @@
             } else {
                 alert('Você pode selecionar no máximo 5 países.');
             }
-        });
+        }); 
     }
 
     function updateListCity() {
@@ -243,11 +244,13 @@
     let selectedCountriesInput = document.getElementById('selectedCountries');
 
     let listPais = [];
+    let listPaisName = [];
 
     function getValueSelect() {
         selectPais.addEventListener('change', function () {
             if (listPais.length < 5 && !listPais.includes(selectPais.value)) {
                 listPais.push(selectPais.value);
+                listPaisName.push(selectPais.options[selectPais.selectedIndex].text);
                 listPais = Array.from(new Set(listPais));
                 console.log(listPais);
                 updateList();
@@ -260,7 +263,7 @@
     function updateList() {
         listSelect.innerHTML = '';
 
-        listPais.forEach(function (pais, index) {
+        listPaisName.forEach(function (pais, index) {
             const listItem = document.createElement('div');
             listItem.classList.add('d-flex', 'flex-row', 'align-items-center');
 
@@ -272,6 +275,7 @@
             deleteButton.classList.add('btn');
             deleteButton.innerHTML = '<i class="bi bi-trash"></i>';
             deleteButton.addEventListener('click', function () {
+                listPaisName.splice(index, 1);
                 listPais.splice(index, 1);
                 updateList();
             });
