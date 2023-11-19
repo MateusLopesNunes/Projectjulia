@@ -25,6 +25,8 @@ module.exports = class MainController {
             console.error(error);
         });
 
+        console.log(countryData)
+
         let countrys = []
         countryData["countrys"].forEach(element => {
             let country = Country.createCountryFromJSON(element);

@@ -239,6 +239,32 @@ module mainController
         </html>
         """
 
+    function getDashboard(req::HTTP.Request)
+
+        listOfCountry = queryBuilder.returnListOfCountry()
+        listOfValue = []
+        for country in listOfCountry
+            push!(listOfValue, country.Name)
+        end
+
+        listOfOption = []
+        for country in listOfValue 
+            push!(listOfOption, country)
+        end
+
+        listOfCountryJson = []
+        for  country in listOfCountry
+            push!(listOfCountryJson, queryBuilder.countryToJson(country))
+        end
+
+        data = Dict(
+            "countrys" => listOfCountryJson
+        )
+
+        json = JSON.json(data)
+
+        return HTTP.Response(200, json );
+    end
 
     function getTemplate(req::HTTP.Request)
         
@@ -273,6 +299,7 @@ module mainController
             try
                 json_data = JSON.parse(IOBuffer(req.body))
                 data = json_data["list"]
+                println(data)
                 listOfCountry = queryBuilder.listOfPopulation(data)
                 
                 listOfCountryJson = []
