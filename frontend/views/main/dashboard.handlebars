@@ -206,20 +206,17 @@
             listSelectCity.appendChild(listItemCity);
         });
 
-        // Atualiza o valor do campo hidden com os países selecionados
         selectedCitysInput.value = listOfCitys.join(',');
     }
 
     saveButtonCity.addEventListener('click', function () {
         if (listOfCitys.length === 5) {
-            // Submete o formulário
             document.getElementById('cityForm').submit();
         } else {
             alert("Você precisa selecionar 5 cidades");
         }
     });
 
-    // Certifique-se de que o campo hidden seja removido do formulário antes de adicionar um novo
     document.getElementById('cityForm').addEventListener('submit', function (event) {
         const existingHiddenInputCity = document.getElementById('selectedCitys');
         if (existingHiddenInputCity) {
@@ -299,7 +296,6 @@
         }
     });
 
-    // Certifique-se de que o campo hidden seja removido do formulário antes de adicionar um novo
     document.getElementById('countryForm').addEventListener('submit', function (event) {
         const existingHiddenInput = document.getElementById('selectedCountries');
         if (existingHiddenInput) {
